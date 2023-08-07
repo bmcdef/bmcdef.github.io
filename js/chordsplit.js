@@ -57,6 +57,32 @@ const lineSplit = (li,limit) => {
 	return res;
 };
 
+
+const pageSplit = (txt,limit) => {
+	let lis = txt.split("\n");
+	// console.log(v);
+	let vr = [];
+	let vl = [];
+	for ( let i=0; i<lis.length; i++ ) {
+		let li = lis[i];
+		if (/^\\/.test(li)) {
+			vr.push(i);
+			vl.push(i%limit);
+		}
+	}
+	vl.shift();
+	let min = Math.min(...vl);
+	let x = vr[vl.indexOf(min)+1];
+	// console.log(x);
+	let res = "";
+	for ( let i=0; i<lis.length; i++ ) {
+		res+= i===x ? "\n" : ""; 
+		res+= lis[i] + "\n";
+	}
+	// console.log(res);
+	return res;
+};
+
 const createMyCopy = (txt) => {
 	let textarea = document.createElement("textarea");
 	textarea.value = txt;
