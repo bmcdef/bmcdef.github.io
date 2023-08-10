@@ -194,7 +194,7 @@ const createMyCopy = (txt) => {
 		width: 278px; 
 		border: 1px solid #777; 
 		outline: 0; 
-		opacity:.5;
+		opacity: 1;
 	`;
 	document.body.appendChild(textarea);
 	var btnCopy = document.createElement("button");
