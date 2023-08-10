@@ -82,6 +82,104 @@ const pageSplit = (txt,limit) => {
 	return res;
 };
 
+const parseCode = (code,limitCharInline,shiftChordPost) => {
+	// parse code
+	limitCharInline = limitCharInline || 60;
+	shiftChordPost = shiftChordPost || 0;
+	let stars = " abcdefghijk";
+	code = nonprintables(code);
+	code = code
+	.replace(/^\s+$/gm,"")
+	.replace(/\n{1,}/g,"\n")
+	.replace(/^ +| +$/gm,"")
+	.replace(/^--/gm,"\n--")
+	.replace(/^__$/gm,"\n")
+	.replace(/\n{2,}/gm,"\n\n")
+	.replace(/--$\s+^--/gm,"--\n--")
+	// parse verse
+	.replace(/\n\n/g,"\n\n\\v\n")
+	// parse hook star
+	.replace(/^(\*+)(\s+)?/gm,(a,b)=>{
+		return `\\.${stars[b.length]}\n`
+	})
+	// parse music/repeat
+	.replace(/^--(.*)--$/gm,(a,b)=>{
+		let res = a;
+		b = b
+		.replace(/(\s+)?([\)\()])(\s+)?/g,"$2")
+		.replace(/ /g,"-")
+		;
+		// repeat
+		if (/\*/.test(b)) {
+			b = b
+			.replace(/[^s\-\*]/g,"")
+			.replace(/\s+/g," ")
+			.trim();
+			b = `\\r\n${b}`;
+		} else {
+		// music repeat
+			let music = "";
+			b = b.replace(/^(.*)\((\d)\)/gm,(a,m,n)=>{
+				n = Number(n);
+				m = m.replace(/-+$/g,"");
+				if (n) {
+					for ( let i=0; i<n; i++ ) {
+						music+= m + "--";
+					}
+				} else {
+					music = m;
+				}
+				return music;
+			});
+			music = "";
+			let p = b.split("--");
+			for ( let i=0; i<p.length; i++ ) {
+				if (i===0) {
+					music+= "---" + p[i];
+				} else 
+				if (i%4===0) {
+					music+= `----${p[i]}`;
+				} else 
+				if (i%2===0) {
+					music+= `---${p[i]}`;
+				} else {
+					music+= `--${p[i]}`;
+				}
+			}
+			music = music
+			.replace(/-+$/gm,"")
+			.replace(/----/g,"\n---")
+			;
+			b = `\\m\n${music}`;
+		}
+		return b;
+	})
+	.replace(/^\\/gm,"\n\\")
+	.replace(/\\v\s+(\\|$)/g,"$1")
+	.replace(/\n{2,}/g,"\n\n")
+	.replace(/\( +/g,"(")
+	.replace(/ +\)/g,")")
+	.trim()
+	;
+	let line = code.split("\n");
+	code = "";
+	for ( let i=0; i<line.length; i++ ) {
+		let li = line[i];
+		if (li=="") {
+			code+= li + "\n";
+		} else 
+		if (/[\\\*]/.test(li)) {
+			code+= li.replace(/-/g," ") + "\n";
+		} else 
+		if (/^---/.test(li)) {
+			code+= li.replace(/-/g," ").trim() + "\n";
+		} else {
+			code+= lineSplit(li,limitCharInline,shiftChordPost);
+		}
+	}
+	return code;
+};
+
 const createMyCopy = (txt) => {
 	let textarea = document.createElement("textarea");
 	textarea.value = txt;
