@@ -4,7 +4,10 @@ const nonprintables = (txt) => {
 };
 
 const cleanHTML = (code) => {
-	return code.replace(/>\s+</g,"><").trim();
+	return code
+	.replace(/&nbsp;|&#160;/g," ")
+	.replace(/>\s+</g,"><")
+	.trim();
 };
 
 const chordSplit = (line,shift) => {
