@@ -2,12 +2,13 @@ const nonprintables = /[\x7F-\x9F\xAD\u0378\u0379\u037F-\u0383\u038B\u038D\u03A2
 
 const specialChar = /([!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?])/g;
 
+
 const parseString = (string) => {
 	return string
 	.replace(/( +)*ๆ( +)*/g,' ๆ ')
 	.replace(/เเ/g,'แ')
 	.replace(/ํา/g,'ำ')
-	.replace(/(&nbsp;| )+/g," ")
+	.replace(/(&nbsp;| )/g," ")
 	.replace(/…/g,'..')
 	.replace(nonprintables,"")
 	;
@@ -117,6 +118,7 @@ const parseCode = (code,limitCharInline,shiftChordPost) => {
 	})
 	// parse music/repeat
 	.replace(/^--(.*)--$/gm,(a,b)=>{
+		// console.log(a);
 		let res = a;
 		b = b
 		.replace(/(\s+)?([\)\()])(\s+)?/g,"$2")
