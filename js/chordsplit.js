@@ -2,6 +2,9 @@ const nonprintables = /[\x7F-\x9F\xAD\u0378\u0379\u037F-\u0383\u038B\u038D\u03A2
 
 const specialChar = /([!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?])/g;
 
+// String.prototype.trimEnd = (str) =>{
+// 	return str.replace(/ +$/gm,"");
+// };
 
 const parseString = (string) => {
 	return string
@@ -46,7 +49,7 @@ const chordSplit = (line,shift) => {
 			_c = c;
 			return "";
 		});
-		line = `${chordLine.trim()}\n${line.trim()}\n`;
+		line = `${chordLine.trimEnd()}\n${line.trimEnd()}\n`;
 	}
 	return line;
 };
