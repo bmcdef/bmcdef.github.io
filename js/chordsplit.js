@@ -46,7 +46,7 @@ const chordSplit = (line,shift) => {
 			_c = c;
 			return "";
 		});
-		line = `${chordLine}\n${line}\n`;
+		line = `${chordLine.trim()}\n${line.trim()}\n`;
 	}
 	return line;
 };
