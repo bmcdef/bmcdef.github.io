@@ -199,7 +199,6 @@ const createMyCopy = (txt) => {
 	textarea.value = txt;
 	textarea.style.cssText = `
 		display: block; 
-		position:fixed; top: 0; right: 0; 
 		z-index: 99999999; 
 		height: 278px; 
 		font-size: 12px; 
