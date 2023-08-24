@@ -188,6 +188,7 @@ const parseCode = (code,limitCharInline,shiftChordPost) => {
 		if (/^---/.test(li)) {
 			code+= li.replace(/-/g," ").trim() + "\n";
 		} else {
+			li = li.replace(/ +/g," ");
 			code+= lineSplit(li,limitCharInline,shiftChordPost);
 		}
 	}
