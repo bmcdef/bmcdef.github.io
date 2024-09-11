@@ -1,0 +1,193 @@
+.chord-tb {
+  user-select: none !important;
+  display: flex;
+  flex-wrap: wrap;
+  position: relative;
+  overflow-x: hidden;
+}
+.chord-tb * {
+  font-size: inherit;
+}
+.chord-tb .td {
+  width: 50%;
+  vertical-align: top;
+  flex-grow: 1;
+}
+.chord-tb .td:nth-child(odd) {
+  border-right-width: 0;
+}
+@media only screen and (max-width: 672px) {
+  .chord-tb .td:nth-child(odd) {
+    border-right: 0;
+  }
+}
+.chord-tb ul {
+  list-style: none;
+  margin: 0;
+  border-bottom-width: 1px;
+  border-bottom-style: solid;
+  padding: 10px 12px;
+}
+.chord-tb ul q:before, .chord-tb ul q:after {
+  content: "";
+}
+.chord-tb ul:last-child {
+  border-bottom: 0 !important;
+}
+.chord-tb ul::after {
+  content: "";
+}
+.chord-tb ul li {
+  display: block;
+}
+.chord-tb ul li::after {
+  content: "";
+  display: block;
+  height: 0;
+  clear: both;
+  visibility: hidden;
+}
+.chord-tb ul li u, .chord-tb ul li i, .chord-tb ul li a, .chord-tb ul li mark, .chord-tb ul li s {
+  font-style: normal;
+  background: none;
+}
+.chord-tb ul li u, .chord-tb ul li u:hover, .chord-tb ul li i, .chord-tb ul li i:hover, .chord-tb ul li a, .chord-tb ul li a:hover, .chord-tb ul li mark, .chord-tb ul li mark:hover, .chord-tb ul li s, .chord-tb ul li s:hover {
+  text-decoration: none;
+}
+.chord-tb ul li a:not(:last-child),
+.chord-tb ul li s:not(:last-child) {
+  padding-right: 4px;
+}
+.chord-tb ul li span {
+  display: inline;
+  float: left;
+}
+.chord-tb ul li span > u, .chord-tb ul li span > i, .chord-tb ul li span > mark {
+  display: block;
+  line-height: 1.2em;
+}
+.chord-tb .hook li, .chord-tb .verse li {
+  padding-left: 18px;
+}
+.chord-tb .hook span > u, .chord-tb .hook span > mark, .chord-tb .verse span > u, .chord-tb .verse span > mark {
+  position: relative;
+  left: -0.5em;
+}
+.chord-tb .hook ._cf::before {
+  visibility: hidden;
+}
+.chord-tb .hook._a li:first-child > span:first-child > i::before {
+  content: "* ";
+}
+.chord-tb .hook._a li:first-child > span:first-child > ._cf::before {
+  content: "__";
+}
+.chord-tb .hook._b li:first-child > span:first-child > i::before {
+  content: "** ";
+}
+.chord-tb .hook._b li:first-child > span:first-child > ._cf::before {
+  content: "___";
+}
+.chord-tb .hook._c li:first-child > span:first-child > i::before {
+  content: "*** ";
+}
+.chord-tb .hook._c li:first-child > span:first-child > ._cf::before {
+  content: "___";
+}
+.chord-tb .hook._d li:first-child > span:first-child > i::before {
+  content: "**** ";
+}
+.chord-tb .hook._d li:first-child > span:first-child > ._cf::before {
+  content: "____";
+}
+.chord-tb .hook._e li:first-child > span:first-child > i::before {
+  content: "***** ";
+}
+.chord-tb .hook._e li:first-child > span:first-child > ._cf::before {
+  content: "_____";
+}
+.chord-tb .hook._f li:first-child > span:first-child > i::before {
+  content: "****** ";
+}
+.chord-tb .hook._f li:first-child > span:first-child > ._cf::before {
+  content: "______";
+}
+.chord-tb .hook > li:first-child > span:first-child > i::before,
+.chord-tb .repeat > li > u {
+  font-family: "Tahoma";
+  font-size: 1em;
+}
+.chord-tb .music > li {
+  display: inline-block;
+}
+.chord-tb .music > li._br {
+  display: block;
+}
+.chord-tb._center .music, .chord-tb._center .repeat {
+  text-align: center;
+}
+.chord-tb._center .verse li, .chord-tb._center .hook li {
+  padding-left: 0;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+.chord-tb._compact {
+  padding: 10px 0;
+}
+.chord-tb._compact .td {
+  width: 100%;
+  border: 0;
+}
+.chord-tb._compact .td .verse, .chord-tb._compact .td .hook {
+  padding: 2px 4px;
+}
+.chord-tb._compact .td li {
+  display: inline-block;
+  padding-left: 0px;
+  justify-content: flex-start;
+  flex-wrap: nowrap;
+}
+.chord-tb._compact._center .td {
+  text-align: center;
+}
+.chord-tb._compact._center .td span {
+  text-align: left;
+}
+
+@media only screen and (max-width: 672px) {
+  .chord-tb:not(._compact) {
+    display: block !important;
+  }
+  .chord-tb:not(._compact) .td {
+    margin-top: 0 !important;
+    width: 100% !important;
+  }
+  .chord-tb:not(._compact) .td:not(:last-child) {
+    border-bottom: 0 !important;
+  }
+  .chord-tb:not(._compact) .td .verse, .chord-tb:not(._compact) .td .hook {
+    padding: 0 !important;
+  }
+  .chord-tb:not(._compact) .td .music li:not(._br), .chord-tb:not(._compact) .td .repeat li:not(._br) {
+    display: block !important;
+    padding: 8px 0 !important;
+  }
+}
+.chord-tb:not(._compact)._vertical {
+  display: block !important;
+}
+.chord-tb:not(._compact)._vertical .td {
+  margin-top: 0 !important;
+  width: 100% !important;
+}
+.chord-tb:not(._compact)._vertical .td:not(:last-child) {
+  border-bottom: 0 !important;
+}
+.chord-tb:not(._compact)._vertical .td .verse, .chord-tb:not(._compact)._vertical .td .hook {
+  padding: 0 !important;
+}
+.chord-tb:not(._compact)._vertical .td .music li:not(._br), .chord-tb:not(._compact)._vertical .td .repeat li:not(._br) {
+  display: block !important;
+  padding: 8px 0 !important;
+}
