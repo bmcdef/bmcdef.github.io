@@ -1,6 +1,21 @@
-let parseString=e=>e.replace(/( +)*ๆ( +)*/g," ๆ ").replace(/เเ/g,"แ").replace(/ํา/g,"ำ").replace(/(&nbsp;| )/g," ").replace(/…/g,"..").replace(nonprintables,""),cleanHTML=e=>e.replace(/&nbsp;|&#160;/g," ").replace(/>\s+</g,"><").trim(),chordSplit=(e,c)=>{if(e){let p=0,t=0,a=0,s="";e=e.replace(/\{[\[\⟨](.*?)[\⟩\]]\}/g,function(e,r,n){var l=n-p-t-a;return c&&(l=(l=0===a?l-c:l)<0?0:l),s+=((e,r)=>{let n="";for(var l=0;l<r;l++)n+=" ";return n+=e})(r,l),p=e.length,t=r.length,a=n,""}),e=""+s.trimEnd()+`
+let createMyCopy=e=>{let r=document.createElement("textarea");r.value=e,r.style.cssText=`
+		display: block; 
+		z-index: 99999999; 
+		height: 278px; 
+		font-size: 12px; 
+		line-height: 1.4em; 
+		font-family: TlwgMono, tahoma; 
+		width: 278px; 
+		border: 1px solid #777; 
+		outline: 0; 
+		opacity: 1;
+	`,document.body.appendChild(r);e=document.createElement("button");e.style.cssText=`
+		position: fixed; top: 0; right: 0; 
+		outline: 0; 
+		z-index: 999999991;
+	`,e.innerText="btnCopy",document.body.appendChild(e),e.onclick=function(){r.select(),r.setSelectionRange(0,99999),navigator.clipboard.writeText(r.value)}},parseString=e=>e.replace(/( +)*ๆ( +)*/g," ๆ ").replace(/เเ/g,"แ").replace(/ํา/g,"ำ").replace(/(&nbsp;| )/g," ").replace(/…/g,"..").replace(nonprintables,""),cleanHTML=e=>e.replace(/&nbsp;|&#160;/g," ").replace(/>\s+</g,"><").trim(),chordSplit=(e,i)=>{if(e){let l=0,p=0,a=0,c="";e=e.replace(/\{[\[\⟨](.*?)[\⟩\]]\}/g,function(e,r,t){var n=t-l-p-a;return i&&(n=(n=0===a?n-i:n)<0?0:n),c+=((e,r)=>{let t="";for(var n=0;n<r;n++)t+=" ";return t+=e})(r,n),l=e.length,p=r.length,a=t,""}),e=""+c.trimEnd()+`
 ${e.trimEnd()}
-`}return e},lineSplit=(e,r,n)=>{let l="";if(e.length>r){let p=e.length/2,t=[],a={};e.replace(/\s/g,(e,r,n)=>{var l=Math.abs(r-p);return t.push(l),a[l]=r,e});var r=Math.min(...t),r=a[r],[r,s]=[e.slice(0,r).trim(),e.slice(r).trim()];l=(l+=chordSplit(r,n))+chordSplit(s,n)}else l+=chordSplit(e,n);return l},pageSplit=(e,r)=>{var n=e.split("\n"),l=[],p=[];for(let e=0;e<n.length;e++){var t=n[e];/^\\/.test(t)&&(l.push(e),p.push(e%r))}p.shift();var e=Math.min(...p),a=l[p.indexOf(e)+1];let s="";for(let e=0;e<n.length;e++)s=(s+=e===a?"\n":"")+n[e]+"\n";return s},chordPress=(e,s,c)=>e=(e=e.replace(/^_(\S+)_$/gm,function(e,r){var n;return/split/.test(e)?"_split_":(n="\n\\"+r[0].replace(/h/,"."),/hook/.test(e)&&(n+=r.match(/_(\w)/)[1]||""),n)}).replace(/^\\(\.\w|v)([^\\]+)/gm,function(e,r,n){for(var l="\\"+r,p=n.split("\n"),t=0;t<p.length;t++){var a=p[t];""===a?l+="\n":(a=a.replace(/^-|-$/gm,"").replace(/{g\[(.*?)\]\)?}/g,e=>`{[${e=e.trim().replace(/\]\[/g,"] [").replace(/[\{g\}\[\]]/g,"").replace(/\s+?\|\s+?/g,"|").replace(/\s+/g,",")}]}`),l+=lineSplit(a,s,c).replace(/&nbsp;/g," "))}return l}).replace(/^\\[mr]([^\\]+)/gm,function(e,r){return(e=e.replace(/[\[\]\⟨\⟩]/g,"").replace(/\-$\n^\+/gm,"_").replace(/^-|-$/gm,"").replace(/^\|(\s+)*|(\s+)*\|$/gm,"").replace(/\|/g," ").replace(/\s{2,}/g,"  ").replace(/(\s+)*_(\s+)*/g,"   ").replace(/\*\s+\*/g,"* *").trim())+"\n"})).replace(/\n{2,}/g,"\n\n").replace(/(\n+)*(\\)/g,"\n\n\\").replace(/(\n+)*_split_(\n+)*/g,"\n\n\n").trim(),rawchorddemo=`_music_
+`}return e},lineSplit=(e,r,t)=>{let n="";if(e.length>r){let l=e.length/2,p=[],a={};e.replace(/\s/g,(e,r,t)=>{var n=Math.abs(r-l);return p.push(n),a[n]=r,e});var r=Math.min(...p),r=a[r],[r,c]=[e.slice(0,r).trim(),e.slice(r).trim()];n=(n+=chordSplit(r,t))+chordSplit(c,t)}else n+=chordSplit(e,t);return n},pageSplit=(e,r)=>{var t=e.split("\n"),n=[],l=[];for(let e=0;e<t.length;e++){var p=t[e];/^\\/.test(p)&&(n.push(e),l.push(e%r))}l.shift();var e=Math.min(...l),a=n[l.indexOf(e)+1];let c="";for(let e=0;e<t.length;e++)c=(c+=e===a?"\n":"")+t[e]+"\n";return c},chordPress=(e,c,i)=>e=(e=e.replace(/^_(\S+)_$/gm,function(e,r){var t;return/split/.test(e)?"_split_":(t="\n\\"+r[0].replace(/h/,"."),/hook/.test(e)&&(t+=r.match(/_(\w)/)[1]||""),t)}).replace(/^\\(\.\w|v)([^\\]+)/gm,function(e,r,t){for(var n="\\"+r,l=t.split("\n"),p=0;p<l.length;p++){var a=l[p];""===a?n+="\n":(a=a.replace(/^-|-$/gm,"").replace(/{g\[(.*?)\]\)?}/g,e=>`{[${e=e.trim().replace(/\]\[/g,"] [").replace(/[\{g\}\[\]]/g,"").replace(/\s+?\|\s+?/g,"|").replace(/\s+/g,",")}]}`),n+=lineSplit(a,c,i).replace(/&nbsp;/g," "))}return n}).replace(/^\\[mr]([^\\]+)/gm,function(e,r){return(e=e.replace(/[\[\]\⟨\⟩]/g,"").replace(/\-$\n^\+/gm,"_").replace(/^-|-$/gm,"").replace(/^\|(\s+)*|(\s+)*\|$/gm,"").replace(/\|/g," ").replace(/\s{2,}/g,"  ").replace(/(\s+)*_(\s+)*/g,"   ").replace(/\*\s+\*/g,"* *").trim())+"\n"})).replace(/\n{2,}/g,"\n\n").replace(/(\n+)*(\\)/g,"\n\n\\").replace(/(\n+)*_split_(\n+)*/g,"\n\n\n").trim(),rawchorddemo=`_music_
 -| [Fm] | [Cm] |-
 +| [C#] | [D#] |-
 _verse_
