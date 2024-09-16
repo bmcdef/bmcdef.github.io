@@ -13,9 +13,9 @@ let nonprintables=/[\x7F-\x9F\xAD\u0378\u0379\u037F-\u0383\u038B\u038D\u03A2\u05
 		position: fixed; top: 0; right: 0; 
 		outline: 0; 
 		z-index: 999999991;
-	`,u.innerText="btnCopy",document.body.appendChild(u),u.onclick=function(){F.select(),F.setSelectionRange(0,99999),navigator.clipboard.writeText(F.value)}},parseString=u=>u.replace(/( +)*ๆ( +)*/g," ๆ ").replace(/เเ/g,"แ").replace(/ํา/g,"ำ").replace(/(&nbsp;| )/g," ").replace(/…/g,"..").replace(nonprintables,""),cleanHTML=u=>u.replace(/&nbsp;|&#160;/g," ").replace(/>\s+</g,"><").trim(),chordSplit=(u,r)=>{if(u){let D=0,C=0,B=0,E="";u=u.replace(/\{[\[\⟨](.*?)[\⟩\]]\}/g,function(u,F,A){var e=A-D-C-B;return r&&(e=(e=0===B?e-r:e)<0?0:e),E+=((u,F)=>{let A="";for(var e=0;e<F;e++)A+=" ";return A+=u})(F,e),D=u.length,C=F.length,B=A,""}),u=""+E.trimEnd()+`
+	`,u.innerText="btnCopy",document.body.appendChild(u),u.onclick=function(){F.select(),F.setSelectionRange(0,99999),navigator.clipboard.writeText(F.value)}},parseString=u=>u.replace(/( +)*ๆ( +)*/g," ๆ ").replace(/เเ/g,"แ").replace(/ํา/g,"ำ").replace(/(&nbsp;| )/g," ").replace(/…/g,"..").replace(nonprintables,""),cleanHTML=u=>u.replace(/&nbsp;|&#160;/g," ").replace(/>\s+</g,"><").trim(),chordSplit=(u,r)=>{if(u){let B=0,D=0,C=0,E="";u=u.replace(/\{[\[\⟨](.*?)[\⟩\]]\}/g,function(u,F,A){var e=A-B-D-C;return r&&(e=(e=0===C?e-r:e)<0?0:e),E+=((u,F)=>{let A="";for(var e=0;e<F;e++)A+=" ";return A+=u})(F,e),B=u.length,D=F.length,C=A,""}),u=""+E.trimEnd()+`
 ${u.trimEnd()}
-`}return u},lineSplit=(u,F,A)=>{let e="";if(u.length>F){let D=u.length/2,C=[],B={};u.replace(/\s/g,(u,F,A)=>{var e=Math.abs(F-D);return C.push(e),B[e]=F,u});var F=Math.min(...C),F=B[F],[F,E]=[u.slice(0,F).trim(),u.slice(F).trim()];e=(e+=chordSplit(F,A))+chordSplit(E,A)}else e+=chordSplit(u,A);return e},pageSplit=(u,F)=>{var A=u.split("\n"),e=[],D=[];for(let u=0;u<A.length;u++){var C=A[u];/^\\/.test(C)&&(e.push(u),D.push(u%F))}D.shift();var u=Math.min(...D),B=e[D.indexOf(u)+1];let E="";for(let u=0;u<A.length;u++)E=(E+=u===B?"\n":"")+A[u]+"\n";return E},chordPress=(u,r,t)=>{console.clear(),u=(u=u.replace(/^_(\S+)_(q?)$/gm,function(u,F,A){var e;return/split/.test(u)?"_split_":(e="\n\\"+F[0].replace(/h/,"."),/hook/.test(u)&&(e+=F.match(/_(\w)/)[1]||""),e+(A?"*":""))}).replace(/^\\((\.\w|v)\*?)([^\\]+)/gm,function(u,F,A,e){for(var D="\\"+F,C=e.split("\n"),B=0;B<C.length;B++){var E=C[B];""===E?D+="\n":(E=E.replace(/&nbsp;/g," ").replace(/^-|-$/gm,"").replace(/{g.+?}/g,u=>`{[${u=u.trim().replace(/([\]\⟩])([\[\⟨])/g,"$1 $2").replace(/[\{g\}\[\]\⟨\⟩]/g,"").replace(/\s+?\|\s+?/g,"|").replace(/\s+/g,",")}]}`),D+=lineSplit(E,r,t))}return D}).replace(/^\\[mr]([^\\_]+)/gm,function(u,F){return(u=u.replace(/[\[\]\⟨\⟩]/g,"").replace(/\-$\n^\+/gm,"_").replace(/^-|-$/gm,"").replace(/^\|(\s+)*|(\s+)*\|$/gm,"").replace(/\|/g," ").replace(/\s{2,}/g,"  ").replace(/(\s+)*_(\s+)*/g,"   ").replace(/\*\s+\*/g,"* *").trim())+"\n"})).replace(/\n{2,}/g,"\n\n").replace(/(\n+)*(\\)/g,"\n\n\\").replace(/(\n+)*_split_(\n+)*/g,"\n\n\n").replace(/~/g,"*").trim();var F=document.querySelector("#preview");return F&&(F.innerHTML=u),u},rawchorddemo=`_music_
+`}return u},lineSplit=(u,F,A)=>{let e="";if(u.length>F){let B=u.length/2,D=[],C={};u.replace(/\s/g,(u,F,A)=>{var e=Math.abs(F-B);return D.push(e),C[e]=F,u});var F=Math.min(...D),F=C[F],[F,E]=[u.slice(0,F).trim(),u.slice(F).trim()];e=(e+=chordSplit(F,A))+chordSplit(E,A)}else e+=chordSplit(u,A);return e},pageSplit=(u,F)=>{var A=u.split("\n"),e=[],B=[];for(let u=0;u<A.length;u++){var D=A[u];/^\\/.test(D)&&(e.push(u),B.push(u%F))}B.shift();var u=Math.min(...B),C=e[B.indexOf(u)+1];let E="";for(let u=0;u<A.length;u++)E=(E+=u===C?"\n":"")+A[u]+"\n";return E},chordPress=(u,r,t)=>{u=(u=u.replace(/^_(\S+)_(q?)$/gm,function(u,F,A){var e;return/split/.test(u)?"_split_":(e="\n\\"+F[0].replace(/h/,"."),/hook/.test(u)&&(e+=F.match(/_(\w)/)[1]||""),e+(A?"*":""))}).replace(/^\\((\.\w|v)\*?)([^\\]+)/gm,function(u,F,A,e){for(var B="\\"+F,D=e.split("\n"),C=0;C<D.length;C++){var E=D[C];""===E?B+="\n":(E=E.replace(/&nbsp;/g," ").replace(/^-|-$/gm,"").replace(/{g.+?}/g,u=>`{[${u=u.trim().replace(/([\]\⟩])([\[\⟨])/g,"$1 $2").replace(/[\{g\}\[\]\⟨\⟩]/g,"").replace(/\s+?\|\s+?/g,"|").replace(/\s+/g,",")}]}`),B+=lineSplit(E,r,t))}return B}).replace(/^\\[mr]([^\\_]+)/gm,function(u,F){return(u=u.replace(/[\[\]\⟨\⟩]/g,"").replace(/\-$\n^\+/gm,"_").replace(/^-|-$/gm,"").replace(/^\|(\s+)*|(\s+)*\|$/gm,"").replace(/\|/g," ").replace(/\s{2,}/g,"  ").replace(/(\s+)*_(\s+)*/g,"   ").replace(/\*\s+\*/g,"* *").trim())+"\n"})).replace(/\n{2,}/g,"\n\n").replace(/(\n+)*(\\)/g,"\n\n\\").replace(/(\n+)*_split_(\n+)*/g,"\n\n\n").replace(/~/g,"*").trim();var F=document.querySelector("#preview");return F&&(F.innerHTML=u),u},rawchorddemo=`_music_
 -| [Fm] | [Cm] |-
 +| [C#] | [D#] |-
 _verse_
@@ -23,11 +23,6 @@ _verse_
 -ของคำว่าฮั{[Cm]}กจากเจ้า..-
 -ที่บอกว่าฮั{[C#]}ก&nbsp;ฮักหลาย-
 -มันแปลว่าฮั{[D#]}กหลายคน-
-_verse_
--หลอ{⟨G#⟩}กให้ฮักหมดใจ-
--แล้วเจ้ากะหลอ{[Cm]}ยมีใครมาแล้วตั้งดน-
--เจ็{[C#]}บจนเกินสิทน-
--เมื่อฮู้ว่าค{[D#]}นที่ฮักนอกใจ-
 _hook_a_
 -โอ้{[Fm]}ย&nbsp;มันกะของแม่นละแห{[Cm]}ม-
 -ฮักท่อใด๋ยังได้เป็น{[C#]}คนแพ้-
@@ -36,22 +31,6 @@ _hook_a_
 -ไปฮักเขาหลาย&nbsp;สมอ{[C#]}งบ่ใช้-
 -แล้วเป็นจังใด๋ล่ะบาดทีนี้{[D#]}..-
 _split_
-_hook_b_
--สมพื้นเจ้าขอ{⟨G#⟩}ง&nbsp;ถืกลากไปหย่อ{[D#]}ง-
--ทั้งที่&nbsp;กะฮัก&nbsp;กะหยั{[Fm]}ง-
--ดิ้นรนห{[D#]}าหม่องตาย&nbsp;ห้ามไว้{[C#]}กะบ่ฟัง..-
--ได้น้ำตาไหล{[D#]}หยามหย่างยามเขาสิหนี-
--คนกะซาวึ่น&nbsp;ๆ{⟨G#⟩}-
--เฮาผู้เดียวที่หลื่{[D#]}น&nbsp;สมพื้นอีห{[Fm]}ลี-
--บ่โทษผู้ใด๋{[D#]}ที่เรื่องมันจ{[C#]}บจั่งซี่..-
--ย้อนเจ้าขอ{[D#]}งที่เผื่อใจบ่เป็นสักที-
--โอ้ย&nbsp;(จั่ง{⟨G#⟩}แม่นสมน้ำหน้า)-
-_music_
--| [Cm] | [C#] |-
-+| [D#] | ⟨G#⟩ |-
-_music_
--| [C#] | [Cm] |-
-+| [A#m] | [D#] | ⟨G#⟩ |-
 _repeat_
 -| [*] | [**] | [**] |-
 _music_
